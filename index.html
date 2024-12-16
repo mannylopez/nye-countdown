@@ -5,11 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Countdown Timer</title>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
   <h1>Countdown Timer</h1>
-  <div id="countdown"></div>
-  <p>HH:mm</p>
-  <script src="script.js"></script>
+  <p id="current-time"></p>
+  
+  <div class="parent">
+    <div class="child" id="daysValue"></div>
+    <div class="child" id="daysColon">:</div>
+    
+    <div class="child" id="hoursValue"></div>
+    <div class="child" id="hoursColon">:</div>
+    
+    <div class="child" id="minutesValue"></div>
+    <div class="child" id="hoursColon">:</div>
+    
+    <div class="child" id="secondsValue"></div>
+  
+    <div class="child" id="daysLabel"></div>
+    <div class="child"></div>
+    <div class="child" id="hoursLabel"></div>
+    <div class="child"></div>
+    <div class="child" id="minutesLabel"></div>
+    <div class="child"></div>
+    <div class="child" id="secondsLabel"></div>
+  </div>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    showCurrentTime();
+    countdown()
+  });
+  </script>
+  <script src="js/script.js"></script>
 </body>
 </html>
