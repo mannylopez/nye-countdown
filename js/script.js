@@ -5,8 +5,8 @@ function showCurrentTime() {
   setTimeout(showCurrentTime, 1000); // Update every second
 }
 
-var countDownDate = new Date("Dec 15, 2024 22:59:00").getTime();
-// var countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
+// var countDownDate = new Date("Dec 15, 2024 22:59:00").getTime();
+var countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
 
 function countdown() {
   const parentDiv = document.querySelector('.parent');
@@ -46,7 +46,7 @@ function countdown() {
   minutesLabelElement.textContent = `minute${makePlural(minutes)}`
   secondsLabelElement.textContent = `second${makePlural(seconds)}`
 
-  setTimeout(countdown, 1000);
+  setTimeout(countdown, 1000); // Update every second
 }
 
 function padZero(i) {
