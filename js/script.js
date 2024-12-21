@@ -1,10 +1,25 @@
-var countDownDate = new Date("Dec 21, 2024 01:15:30").getTime();
-// var countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
+// const countDownDate = new Date("Dec 21, 2024 14:10:00").getTime();
+const countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
+
+document.addEventListener('DOMContentLoaded', function() {
+  countdown();
+  setInterval(countdown, 1000); // Update every second
+});
 
 function countdown() {
+  const now = new Date().getTime();;
+  const distance = countDownDate - now;
+  
+  const daysElement = document.getElementById('daysValue')
+
+  if ( distance < 0) {
+    daysElement.textContent = "negative time"
+    clearTimeout(countdown);
+    return;
+  }
+
   const parentDiv = document.querySelector('.parent');
 
-  const daysElement = document.getElementById('daysValue')
   const hoursElement = document.getElementById('hoursValue')
   const minutesElement = document.getElementById('minutesValue')
   const secondsElement = document.getElementById('secondsValue')
@@ -14,15 +29,6 @@ function countdown() {
   const minutesLabelElement = document.getElementById('minutesLabel')
   const secondsLabelElement = document.getElementById('secondsLabel')
 
-  var now = new Date().getTime();;
-  var distance = countDownDate - now;
-  
-  // TODO: Check `distance` to make sure we don't go into negative time
-  if ( distance < 0) {
-    daysElement.textContent = "negative time"
-    clearTimeout(countdown);
-    return;
-  }
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -51,7 +57,6 @@ function countdown() {
     hoursElement.style.display = 'none';
     minutesElement.style.display = 'none';
     secondsElement.style.display = 'none';
-    // secondsElement.textContent = "Happy new years"
     daysLabelElement.style.display = 'none';
     hoursLabelElement.style.display = 'none';
     minutesLabelElement.style.display = 'none';
@@ -60,15 +65,18 @@ function countdown() {
     document.getElementById('hoursColon').style.display = 'none';
     document.getElementById('minutesColon').style.display = 'none';
     
-    const nyeMessageElement = document.getElementById('nye-message');
-    nyeMessageElement.textContent = "Happy New Year!";
+    displayNYEMessage()
 
     clearTimeout(countdown);
     return;
   }
-  // const nyeMessageElement = document.getElementById('nye-message');
-  // nyeMessageElement.textContent = "Happy New Year!";
+  
   setTimeout(countdown, 1000); // Update every second
+}
+
+function displayNYEMessage() {
+  const nyeMessageElement = document.getElementById('nye-message');
+  nyeMessageElement.textContent = "Happy New Year!";
 }
 
 function padZero(i) {

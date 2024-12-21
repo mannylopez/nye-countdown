@@ -20,10 +20,11 @@
   font-weight: 600;
   font-style: normal;
   text-align: center;;
+  padding: 50px;
 }
 
 [id*="Value"], [id*="Colon"] {
-  font-size: 80px;
+  font-size: 120px;
   font-family: "Noto Serif JP", serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -42,4 +43,32 @@ html, body {
   color: #F5F5F5;
   background: linear-gradient(to bottom, #0B0C10, #1d3f69);
   place-content: center;
+}
+
+@media (max-width: 768px) {
+  #nye-message {
+    font-size: 100px;
+  }
+
+  [id*="Value"], [id*="Colon"] {
+    font-size: 80px;
+  }
+
+  [id*="Label"] {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  #nye-message {
+    font-size: 50px;
+  }
+
+  [id*="Value"], [id*="Colon"] {
+    font-size: 60px;
+  }
+
+  [id*="Label"] {
+    font-size: 20px;
+  }
 }
