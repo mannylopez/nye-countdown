@@ -1,11 +1,4 @@
-function showCurrentTime() {
-  const localTimeElement = document.getElementById('current-time');
-  const now = new Date();
-  localTimeElement.textContent = now.toLocaleTimeString();
-  setTimeout(showCurrentTime, 1000); // Update every second
-}
-
-// var countDownDate = new Date("Dec 15, 2024 22:59:00").getTime();
+// var countDownDate = new Date("Dec 20, 2024 19:28:00").getTime();
 var countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
 
 function countdown() {
@@ -23,14 +16,21 @@ function countdown() {
 
   var now = new Date().getTime();;
   var distance = countDownDate - now;
+  console.log('distance', distance)
+  // TODO: Check `distance` to make sure we don't go into negative time
+  if ( distance < 0) {
+    daysElement.textContent = "negative time"
+    clearTimeout(countdown);
+    return;
+  }
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
   if (days === 0) {
-    document.getElementById('daysValue').style.display = 'none';
-    document.getElementById('daysLabel').style.display = 'none';
+    daysElement.style.display = 'none';
+    daysLabelElement.style.display = 'none';
     document.getElementById('daysColon').style.display = 'none';
     parentDiv.style.gridTemplateColumns = '1fr 0.25fr 1fr 0.25fr 1fr 0.25fr';
   } else {
@@ -46,6 +46,28 @@ function countdown() {
   minutesLabelElement.textContent = `minute${makePlural(minutes)}`
   secondsLabelElement.textContent = `second${makePlural(seconds)}`
 
+  if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+    daysElement.style.display = 'none';
+    hoursElement.style.display = 'none';
+    minutesElement.style.display = 'none';
+    secondsElement.style.display = 'none';
+    // secondsElement.textContent = "Happy new years"
+    daysLabelElement.style.display = 'none';
+    hoursLabelElement.style.display = 'none';
+    minutesLabelElement.style.display = 'none';
+    secondsLabelElement.style.display = 'none';
+    document.getElementById('daysColon').style.display = 'none';
+    document.getElementById('hoursColon').style.display = 'none';
+    document.getElementById('minutesColon').style.display = 'none';
+    
+    const nyeMessageElement = document.getElementById('nye-message');
+    nyeMessageElement.textContent = "Happy New Year!";
+
+    clearTimeout(countdown);
+    return;
+  }
+  // const nyeMessageElement = document.getElementById('nye-message');
+  // nyeMessageElement.textContent = "Happy New Year!";
   setTimeout(countdown, 1000); // Update every second
 }
 

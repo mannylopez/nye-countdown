@@ -10,8 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Countdown Timer</h1>
-  <p id="current-time"></p>
+  <div id="nye-message"></div>
   
   <div class="parent">
     <div class="child" id="daysValue"></div>
@@ -21,7 +20,7 @@
     <div class="child" id="hoursColon">:</div>
     
     <div class="child" id="minutesValue"></div>
-    <div class="child" id="hoursColon">:</div>
+    <div class="child" id="minutesColon">:</div>
     
     <div class="child" id="secondsValue"></div>
   
@@ -35,7 +34,6 @@
   </div>
   <script>
   document.addEventListener('DOMContentLoaded', function() {
-    showCurrentTime();
     countdown()
   });
   </script>
