@@ -1,25 +1,29 @@
-// const countDownDate = new Date("Dec 21, 2024 14:10:00").getTime();
-const countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
+const countDownDate = new Date("Dec 21, 2024 14:27:40").getTime();
+// const countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
 
 document.addEventListener('DOMContentLoaded', function() {
   countdown();
   setInterval(countdown, 1000); // Update every second
 });
 
+function displayNegativeTime() {
+  const daysElement = document.getElementById('daysValue')
+  daysElement.textContent = "negative time"
+    clearTimeout(countdown);
+}
+
 function countdown() {
   const now = new Date().getTime();;
   const distance = countDownDate - now;
-  
-  const daysElement = document.getElementById('daysValue')
 
   if ( distance < 0) {
-    daysElement.textContent = "negative time"
-    clearTimeout(countdown);
+    displayNegativeTime()
     return;
   }
 
   const parentDiv = document.querySelector('.parent');
 
+  const daysElement = document.getElementById('daysValue')
   const hoursElement = document.getElementById('hoursValue')
   const minutesElement = document.getElementById('minutesValue')
   const secondsElement = document.getElementById('secondsValue')
