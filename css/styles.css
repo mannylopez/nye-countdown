@@ -1,7 +1,3 @@
-.wrapper {
-  display: grid;
-}
-
 .koh-santepheap-thin {
   font-family: "Koh Santepheap", serif;
   font-weight: 100;
@@ -13,7 +9,6 @@
   margin-left: auto;
   margin-right: auto;
   display: grid;
-  /* grid-template-columns: 20% 5% 20% 5% 20% 5% 20%; */
   grid-template-columns: 1fr 0.25fr 1fr 0.25fr 1fr 0.25fr 1fr;
   text-align: center;
 }
@@ -42,6 +37,9 @@
 
 html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
   color: #F5F5F5;
   background: linear-gradient(to bottom, #0B0C10, #1d3f69);
+  place-content: center;
 }

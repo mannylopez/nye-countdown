@@ -1,5 +1,5 @@
-// var countDownDate = new Date("Dec 20, 2024 19:28:00").getTime();
-var countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
+var countDownDate = new Date("Dec 21, 2024 01:15:30").getTime();
+// var countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
 
 function countdown() {
   const parentDiv = document.querySelector('.parent');
@@ -16,7 +16,7 @@ function countdown() {
 
   var now = new Date().getTime();;
   var distance = countDownDate - now;
-  console.log('distance', distance)
+  
   // TODO: Check `distance` to make sure we don't go into negative time
   if ( distance < 0) {
     daysElement.textContent = "negative time"
