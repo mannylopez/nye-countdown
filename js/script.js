@@ -1,91 +1,109 @@
-// const countDownDate = new Date("Dec 21, 2024 20:47:00 ").getTime();
+// const countDownDate = new Date("Dec 22, 2024 09:39:50 ").getTime();
 const countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
 
+const elements = {
+  values: {},
+  labels: {},
+  colons: {}
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-  countdown();
-  setInterval(countdown, 1000); // Update every second
+  elements.values = {
+    days: document.getElementById(`daysValue`),
+    hours: document.getElementById(`hoursValue`),
+    minutes: document.getElementById(`minutesValue`),
+    seconds: document.getElementById(`secondsValue`)
+  };
+
+  elements.labels = {
+    days: document.getElementById(`daysLabel`),
+    hours: document.getElementById(`hoursLabel`),
+    minutes: document.getElementById(`minutesLabel`),
+    seconds: document.getElementById(`secondsLabel`)
+  };
+
+  elements.colons = {
+    days: document.getElementById(`daysColon`),
+    hours: document.getElementById(`hoursColon`),
+    minutes: document.getElementById(`minutesColon`)
+  };
+
+  incrementCount();
+  setInterval(incrementCount, 1000); // Update every second
 });
 
-function countdown() {
+function incrementCount() {
   const now = new Date().getTime();
   const distance = countDownDate - now;
 
   if ( distance < 0) {
-    displayNegativeTime();
-    return;
+    // New Year's Day passed, so count up from New Year's Day
+    const timeComponents = calculateTimeComponents(now - countDownDate);
+    updateScreenElements(timeComponents);
+  } else {
+    // New Year's Day has not passed yet, so count down to New Year's Day
+    const timeComponents = calculateTimeComponents(distance);
+    updateScreenElements(timeComponents);
+    checkForNewYears(timeComponents);
   }
-  const timeComponents = calculateTimeComponents(distance);
-  updateDisplay(timeComponents);
 }
 
-function displayNegativeTime() {
-  const daysElement = document.getElementById('daysValue');
-  daysElement.textContent = "negative time";
-  clearTimeout(countdown);
-}
-
-function updateDisplay({ days, hours, minutes, seconds }) {
+function updateScreenElements({ days, hours, minutes, seconds }) {
   const parentDiv = document.querySelector('.parent');
 
-  const daysElement = document.getElementById('daysValue');
-  const hoursElement = document.getElementById('hoursValue');
-  const minutesElement = document.getElementById('minutesValue');
-  const secondsElement = document.getElementById('secondsValue');
-
-  const daysLabelElement = document.getElementById('daysLabel');
-  const hoursLabelElement = document.getElementById('hoursLabel');
-  const minutesLabelElement = document.getElementById('minutesLabel');
-  const secondsLabelElement = document.getElementById('secondsLabel');
-
   if (days === 0) {
-    hideElement(daysElement);
-    hideElement(daysLabelElement);
-    hideElement(document.getElementById('daysColon'));
+    hideElement(elements.values.days);
+    hideElement(elements.labels.days);
+    hideElement(elements.colons.days);
     parentDiv.style.gridTemplateColumns = '1fr 0.25fr 1fr 0.25fr 1fr 0.25fr';
   } else {
-    daysElement.textContent = padZero(days);
-    daysLabelElement.textContent = `day${makePlural(days)}`;
+    elements.values.days.textContent = padZero(days);
+    elements.labels.days.textContent = `day${makePlural(days)}`;
   }
   
-  hoursElement.textContent = padZero(hours);
-  minutesElement.textContent = padZero(minutes);
-  secondsElement.textContent = padZero(seconds);
+  elements.values.hours.textContent = padZero(hours);
+  elements.values.minutes.textContent = padZero(minutes);
+  elements.values.seconds.textContent = padZero(seconds);
   
-  hoursLabelElement.textContent = `hour${makePlural(hours)}`;
-  minutesLabelElement.textContent = `minute${makePlural(minutes)}`;
-  secondsLabelElement.textContent = `second${makePlural(seconds)}`;
+  elements.labels.hours.textContent = `hour${makePlural(hours)}`;
+  elements.labels.minutes.textContent = `minute${makePlural(minutes)}`;
+  elements.labels.seconds.textContent = `second${makePlural(seconds)}`;
+}
 
+function checkForNewYears({ days, hours, minutes, seconds }) {
   if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
-    hideElement(daysElement);
-    hideElement(hoursElement);
-    hideElement(minutesElement);
-    hideElement(secondsElement);
-    hideElement(daysLabelElement);
-    hideElement(hoursLabelElement);
-    hideElement(minutesLabelElement);
-    hideElement(secondsLabelElement);
-    hideElement(document.getElementById('daysColon'));
-    hideElement(document.getElementById('hoursColon'));
-    hideElement(document.getElementById('minutesColon'));
-    
+    hideElements();
     displayNYEMessage();
-
-    clearTimeout(countdown);
+    clearTimeout(incrementCount);
     return;
   }
 }
 
-function calculateTimeComponents(distance) {
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  return { days, hours, minutes, seconds };
+function hideElements() {
+  hideElement(elements.values.days);
+  hideElement(elements.values.hours);
+  hideElement(elements.values.minutes);
+  hideElement(elements.values.seconds);
+  hideElement(elements.labels.days);
+  hideElement(elements.labels.hours);
+  hideElement(elements.labels.minutes);
+  hideElement(elements.labels.seconds);
+  hideElement(elements.colons.days);
+  hideElement(elements.colons.hours);
+  hideElement(elements.colons.minutes);
 }
 
 function displayNYEMessage() {
   const nyeMessageElement = document.getElementById('nye-message');
   nyeMessageElement.textContent = "Happy New Year!";
+}
+
+function calculateTimeComponents(distance) {
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  return { days, hours, minutes, seconds };
 }
 
 function padZero(i) {
