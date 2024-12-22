@@ -1,5 +1,5 @@
-// const countDownDate = new Date("Dec 21, 2024 20:47:00 ").getTime();
-const countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
+const countDownDate = new Date("Dec 21, 2024 21:47:00 ").getTime();
+// const countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
 
 document.addEventListener('DOMContentLoaded', function() {
   countdown();
@@ -9,19 +9,54 @@ document.addEventListener('DOMContentLoaded', function() {
 function countdown() {
   const now = new Date().getTime();
   const distance = countDownDate - now;
-
-  if ( distance < 0) {
-    displayNegativeTime();
-    return;
-  }
   const timeComponents = calculateTimeComponents(distance);
-  updateDisplay(timeComponents);
+  if ( distance < 0) {
+    updatePastDisplay(timeComponents);
+  } else {
+    updateDisplay(timeComponents);
+  }
 }
 
 function displayNegativeTime() {
   const daysElement = document.getElementById('daysValue');
   daysElement.textContent = "negative time";
   clearTimeout(countdown);
+}
+
+function updatePastDisplay({ days, hours, minutes, seconds }) { 
+  const newDays = days + 1;
+  const newHours = hours + 1;
+  const newMinutes = minutes + 1;
+
+  const parentDiv = document.querySelector('.parent');
+
+  const daysElement = document.getElementById('daysValue');
+  const hoursElement = document.getElementById('hoursValue');
+  const minutesElement = document.getElementById('minutesValue');
+  const secondsElement = document.getElementById('secondsValue');
+
+  const daysLabelElement = document.getElementById('daysLabel');
+  const hoursLabelElement = document.getElementById('hoursLabel');
+  const minutesLabelElement = document.getElementById('minutesLabel');
+  const secondsLabelElement = document.getElementById('secondsLabel');
+
+  if (days === 0) {
+    hideElement(daysElement);
+    hideElement(daysLabelElement);
+    hideElement(document.getElementById('daysColon'));
+    parentDiv.style.gridTemplateColumns = '1fr 0.25fr 1fr 0.25fr 1fr 0.25fr';
+  } else {
+    daysElement.textContent = padZero(Math.abs(newDays));
+    daysLabelElement.textContent = `day${makePlural(newDays)}`;
+  }
+
+  hoursElement.textContent = padZero(Math.abs(newHours));
+  minutesElement.textContent = padZero(Math.abs(newMinutes));
+  secondsElement.textContent = padZero(Math.abs(seconds));
+  
+  hoursLabelElement.textContent = `hour${makePlural(hours)}`;
+  minutesLabelElement.textContent = `minute${makePlural(minutes)}`;
+  secondsLabelElement.textContent = `second${makePlural(seconds)}`;
 }
 
 function updateDisplay({ days, hours, minutes, seconds }) {
