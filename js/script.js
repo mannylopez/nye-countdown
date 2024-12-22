@@ -1,4 +1,4 @@
-const countDownDate = new Date("Dec 21, 2024 21:47:00 ").getTime();
+const countDownDate = new Date("Dec 22, 2024 08:52:00 ").getTime();
 // const countDownDate = new Date("Jan 01, 2025 00:00:00").getTime();
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,10 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
 function countdown() {
   const now = new Date().getTime();
   const distance = countDownDate - now;
-  const timeComponents = calculateTimeComponents(distance);
+
   if ( distance < 0) {
+    const timeComponents = calculateTimeComponents(now - countDownDate);
     updatePastDisplay(timeComponents);
   } else {
+    const timeComponents = calculateTimeComponents(distance);
     updateDisplay(timeComponents);
   }
 }
@@ -24,9 +26,6 @@ function displayNegativeTime() {
 }
 
 function updatePastDisplay({ days, hours, minutes, seconds }) { 
-  const newDays = days + 1;
-  const newHours = hours + 1;
-  const newMinutes = minutes + 1;
 
   const parentDiv = document.querySelector('.parent');
 
@@ -46,13 +45,13 @@ function updatePastDisplay({ days, hours, minutes, seconds }) {
     hideElement(document.getElementById('daysColon'));
     parentDiv.style.gridTemplateColumns = '1fr 0.25fr 1fr 0.25fr 1fr 0.25fr';
   } else {
-    daysElement.textContent = padZero(Math.abs(newDays));
-    daysLabelElement.textContent = `day${makePlural(newDays)}`;
+    daysElement.textContent = padZero(days);
+    daysLabelElement.textContent = `day${makePlural(days)}`;
   }
 
-  hoursElement.textContent = padZero(Math.abs(newHours));
-  minutesElement.textContent = padZero(Math.abs(newMinutes));
-  secondsElement.textContent = padZero(Math.abs(seconds));
+  hoursElement.textContent = padZero(hours);
+  minutesElement.textContent = padZero(minutes);
+  secondsElement.textContent = padZero(seconds);
   
   hoursLabelElement.textContent = `hour${makePlural(hours)}`;
   minutesLabelElement.textContent = `minute${makePlural(minutes)}`;
@@ -111,10 +110,10 @@ function updateDisplay({ days, hours, minutes, seconds }) {
 }
 
 function calculateTimeComponents(distance) {
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
   return { days, hours, minutes, seconds };
 }
 
